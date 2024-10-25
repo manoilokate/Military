@@ -1,0 +1,58 @@
+﻿@model List<PersonalRecord>
+
+<h1>Пошук особової справи</h1>
+
+<form method="post" asp-action="Index">
+    <div class="row mb-3 p-1">
+        <label name="LastName" class="p-0">Введіть прізвище:</label>
+        <input type="text" name="LastName"/>
+    </div>
+    <div class="row mb-3 p-1">
+        <label name="LastName" class="p-0">Введіть ім'я:</label>
+        <input type="text" name="FirstName" />
+    </div>
+    <div class="row mb-3 p-1">
+        <label name="LastName" class="p-0">Введіть по-батькові:</label>
+        <input type="text" name="Soname" />
+    </div>
+    <button type="submit">Пошук</button>
+</form>
+
+@if (Model != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Дата народження</th>
+                <th>Початок служби</th>
+                <th>Звання</th>
+                <th>Номер частини</th>
+                <th>Освіта</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.LastName</td>
+                    <td>@record.FirstName</td>
+                    <td>@record.Soname</td>
+                    <td>@record.DateOfBirth.ToString("dd.MM.yyyy")</td>
+                    <td>@record.DateOfStartWork</td>
+                    <td>@record.Rank</td>
+                    <td>@record.NumberOrganization</td>
+                    <td>@record.Education</td>
+                    <td>@record.PhoneNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (ViewBag.IsSearchPerformed == true)
+{
+    <p>@ViewBag.Message</p> 
+}
