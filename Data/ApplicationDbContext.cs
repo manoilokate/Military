@@ -9,8 +9,9 @@ namespace PersonalRecords.Data
         {
 
         }
-     public DbSet<User> Users { get; set; }
-     public DbSet<PersonalRecord> PersonalRecords { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<FamilyContacts> FamilyContacts { get; set; }
+    public DbSet<PersonalRecord> PersonalRecords { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PersonalRecord>().HasData(

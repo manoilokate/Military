@@ -15,5 +15,6 @@ namespace PersonalRecords.Models
         public string NumberOrganization { get; set; }
         public string Education { get; set; }
         public string PhoneNumber { get; set; }
+        public virtual ICollection<FamilyContacts> FamilyContacts { get; set; }
     }
 }
