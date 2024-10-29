@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalRecords.Data;
 using PersonalRecords.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace PersonalRecords.Controllers
 {
@@ -17,30 +18,30 @@ namespace PersonalRecords.Controllers
 
         public IActionResult Index(string LastName, string FirstName, string Soname)
         {
-            List<PersonalRecord> matchedRecords = new List<PersonalRecord>();
-            bool isSearchPerformed = false; 
+            PersonalRecord? matchedRecord = null;
+            bool isSearchPerformed = false;
 
-            if (!string.IsNullOrEmpty(LastName) && !string.IsNullOrEmpty(FirstName) && !string.IsNullOrEmpty(Soname))
+            if (!string.IsNullOrEmpty(LastName) || !string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(Soname))
             {
                 isSearchPerformed = true;
 
-                matchedRecords = _context.PersonalRecords
-                    .Where(p =>
+                matchedRecord = _context.PersonalRecords
+                    .FirstOrDefault(p =>
                         (string.IsNullOrEmpty(LastName) || p.LastName == LastName) &&
                         (string.IsNullOrEmpty(FirstName) || p.FirstName == FirstName) &&
-                        (string.IsNullOrEmpty(Soname) || p.Soname == Soname))
-                    .ToList();
+                        (string.IsNullOrEmpty(Soname) || p.Soname == Soname));
             }
 
-            ViewBag.IsSearchPerformed = isSearchPerformed; 
-            if (matchedRecords.Any())
+            ViewBag.IsSearchPerformed = isSearchPerformed;
+
+            if (matchedRecord != null)
             {
-                return View("Index", matchedRecords);
+                return View("Index", matchedRecord);
             }
             else
             {
                 ViewBag.Message = "Запис не знайдено";
-                return View("Index"); 
+                return View("Index");
             }
         }
     }

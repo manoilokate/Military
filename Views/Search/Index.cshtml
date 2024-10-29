@@ -1,26 +1,35 @@
-﻿@model List<PersonalRecord>
+﻿@model PersonalRecord
 
-<h1>Пошук особової справи</h1>
+<h2>Пошук особової справи</h2>
 
 <form method="post" asp-action="Index">
     <div class="row mb-3 p-1">
-        <label name="LastName" class="p-0">Введіть прізвище:</label>
-        <input type="text" name="LastName"/>
+        <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
+        <div class="col-6">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger" style="font-size:12px"></span>
+        </div>
     </div>
     <div class="row mb-3 p-1">
-        <label name="LastName" class="p-0">Введіть ім'я:</label>
-        <input type="text" name="FirstName" />
+        <label asp-for="FirstName" class="p-0">Введіть ім'я:</label>
+        <div class="col-6">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px"></span>
+        </div>
     </div>
     <div class="row mb-3 p-1">
-        <label name="LastName" class="p-0">Введіть по-батькові:</label>
-        <input type="text" name="Soname" />
+        <label asp-for="Soname" class="p-0">Введіть по-батькові:</label>
+        <div class="col-6">
+            <input asp-for="Soname" class="form-control" />
+            <span asp-validation-for="Soname" class="text-danger" style="font-size:12px"></span>
+        </div>
     </div>
-    <button type="submit">Пошук</button>
+    <button type="submit" class="btn btn-primary">Пошук</button>
 </form>
 
-@if (Model != null)
+@if (Model != null) 
 {
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Прізвище</th>
@@ -35,24 +44,27 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var record in Model)
-            {
                 <tr>
-                    <td>@record.LastName</td>
-                    <td>@record.FirstName</td>
-                    <td>@record.Soname</td>
-                    <td>@record.DateOfBirth.ToString("dd.MM.yyyy")</td>
-                    <td>@record.DateOfStartWork</td>
-                    <td>@record.Rank</td>
-                    <td>@record.NumberOrganization</td>
-                    <td>@record.Education</td>
-                    <td>@record.PhoneNumber</td>
+                    <td>@Model.LastName</td>
+                    <td>@Model.FirstName</td>
+                    <td>@Model.Soname</td>
+                    <td>@Model.DateOfBirth.ToString("dd.MM.yyyy")</td>
+                    <td>@Model.DateOfStartWork</td>
+                    <td>@Model.Rank</td>
+                    <td>@Model.NumberOrganization</td>
+                    <td>@Model.Education</td>
+                    <td>@Model.PhoneNumber</td>
                 </tr>
-            }
         </tbody>
     </table>
 }
 else if (ViewBag.IsSearchPerformed == true)
 {
-    <p>@ViewBag.Message</p> 
+    <p>@ViewBag.Message</p>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
