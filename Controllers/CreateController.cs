@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PersonalRecords.Data;
 using PersonalRecords.Models;
+using System.Diagnostics;
 
 namespace PersonalRecords.Controllers
 {
@@ -12,16 +13,33 @@ namespace PersonalRecords.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(PersonalRecord personalRecord)
+        [HttpGet]
+        public IActionResult Index()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(PersonalRecord personalRecord)
+        {
+            
             if (!ModelState.IsValid)
             {
-                return View(personalRecord); 
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                           Debug.WriteLine($"Помилка: {error.ErrorMessage}");
+                    }
+                }
+                return View(personalRecord);
             }
-            _context.PersonalRecords.Add(personalRecord);
-            _context.SaveChanges();
-            ViewBag.Message = "Запис додано";
+
+            await _context.PersonalRecords.AddAsync(personalRecord);
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = "Запис успішно додано!";
             return RedirectToAction("Index");
         }
+
     }
 }

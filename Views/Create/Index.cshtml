@@ -1,6 +1,18 @@
 ﻿@model PersonalRecord
 
-<form method="post" asp-action="Index">
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<form method="post">
+    <div class="row mb-3 p-1">
+        <label asp-for="Id" class="p-0">Введіть прізвище:</label>
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger" style="font-size:12px"></span>
+    </div>
     <div class="row mb-3 p-1">
         <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
         <input asp-for="LastName" class="form-control" />
@@ -18,12 +30,12 @@
     </div>
     <div class="row mb-3 p-1">
         <label asp-for="DateOfBirth" class="p-0">Введіть дату народження:</label>
-        <input asp-for="DateOfBirth" type="date" class="form-control" />
+        <input asp-for="DateOfBirth"  class="form-control" />
         <span asp-validation-for="DateOfBirth" class="text-danger" style="font-size:12px"></span>
     </div>
     <div class="row mb-3 p-1">
         <label asp-for="DateOfStartWork" class="p-0">Введіть дату початку роботи:</label>
-        <input asp-for="DateOfStartWork" type="date" class="form-control" />
+        <input asp-for="DateOfStartWork" class="form-control" />
         <span asp-validation-for="DateOfStartWork" class="text-danger" style="font-size:12px"></span>
     </div>
     <div class="row mb-3 p-1">

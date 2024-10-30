@@ -6,7 +6,6 @@ namespace PersonalRecords.Models
     public class PersonalRecord
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         public string FirstName { get; set; }
@@ -15,9 +14,9 @@ namespace PersonalRecords.Models
         [Required]
         public string Soname {  get; set; }
         [Required]
-        public DateOnly DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
         [Required]
-        public DateOnly DateOfStartWork { get; set; }
+        public string DateOfStartWork { get; set; }
         [Required]
         public string Rank { get; set; }
         [Required]
@@ -26,6 +25,6 @@ namespace PersonalRecords.Models
         public string Education { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
-        public virtual ICollection<FamilyContacts> FamilyContacts { get; set; }
+        public virtual ICollection<FamilyContacts> FamilyContacts { get; set; } = new List<FamilyContacts>();
     }
 }

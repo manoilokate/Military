@@ -16,7 +16,7 @@ namespace PersonalRecords.Data
         {
             modelBuilder.Entity<PersonalRecord>().HasData(
                 new PersonalRecord { Id = 1, FirstName = "Іван", 
-                    LastName = "Бондарчук",Soname = "Андрійович", DateOfBirth = new DateOnly(1990, 1, 1),DateOfStartWork = new DateOnly(2008, 6, 11), 
+                    LastName = "Бондарчук",Soname = "Андрійович", DateOfBirth = "1990-01-01",DateOfStartWork = "2008-06-01", 
                     Rank = "Сержант", NumberOrganization = "A5678", Education = "Повна середня", PhoneNumber = "0956784322"},
                 new PersonalRecord
                 {
@@ -24,8 +24,8 @@ namespace PersonalRecords.Data
                     FirstName = "Остап",
                     LastName = "Бедненко",
                     Soname = "Валентинович",
-                    DateOfBirth = new DateOnly(1976, 8, 21),
-                    DateOfStartWork = new DateOnly(2000, 4, 3),
+                    DateOfBirth = "1976-08-21",
+                    DateOfStartWork = "2000-04-04",
                     Rank = "Капітан",
                     NumberOrganization = "A4399",
                     Education = "Повна середня",
