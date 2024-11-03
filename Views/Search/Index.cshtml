@@ -1,0 +1,70 @@
+﻿@model PersonalRecord
+
+<h2>Пошук особової справи</h2>
+
+<form method="post" asp-action="Index">
+    <div class="row mb-3 p-1">
+        <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
+        <div class="col-6">
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger" style="font-size:12px"></span>
+        </div>
+    </div>
+    <div class="row mb-3 p-1">
+        <label asp-for="FirstName" class="p-0">Введіть ім'я:</label>
+        <div class="col-6">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px"></span>
+        </div>
+    </div>
+    <div class="row mb-3 p-1">
+        <label asp-for="Soname" class="p-0">Введіть по-батькові:</label>
+        <div class="col-6">
+            <input asp-for="Soname" class="form-control" />
+            <span asp-validation-for="Soname" class="text-danger" style="font-size:12px"></span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Пошук</button>
+</form>
+
+@if (Model != null) 
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Дата народження</th>
+                <th>Початок служби</th>
+                <th>Звання</th>
+                <th>Номер частини</th>
+                <th>Освіта</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>@Model.LastName</td>
+                    <td>@Model.FirstName</td>
+                    <td>@Model.Soname</td>
+                    <td>@Model.DateOfBirth</td>
+                    <td>@Model.DateOfStartWork</td>
+                    <td>@Model.Rank</td>
+                    <td>@Model.NumberOrganization</td>
+                    <td>@Model.Education</td>
+                    <td>@Model.PhoneNumber</td>
+                </tr>
+        </tbody>
+    </table>
+}
+else if (ViewBag.IsSearchPerformed == true)
+{
+    <p>@ViewBag.Message</p>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
