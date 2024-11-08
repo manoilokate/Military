@@ -1,25 +1,61 @@
-// codename: helix
-
-// на агента потрібно встановити dotnet sdk, щоб виконати цю побудову
-
 pipeline {
     agent any
 
+    environment {
+        GIT_COMMIT_HASH = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+    }
+
     stages {
-        stage('Restore .NET Dependencies') {
+
+        //!!!
+        //Resore, Build and Publish stages are commented, as they are present in Dockerfile
+        //
+
+        // stage('Restore .NET Dependencies') {
+        //     steps {
+        //         sh 'dotnet restore'
+        //     }
+        // }
+
+        // stage('Build') {
+        //     steps {
+        //         sh 'dotnet build --configuration Release'
+        //     }
+        // }
+
+        // stage('Publish') {
+        //     steps {
+        //         sh 'dotnet publish --configuration Release'
+        //     }
+        // }
+
+        stage('Create Docker image') {
+            // when {
+            //     expression {
+            //         return env.GIT_BRANCH && (env.GIT_BRANCH.contains("snapshot-") || env.GIT_BRANCH.contains("release-"))
+            //     }
+            // }
             steps {
-                sh 'dotnet restore'
+                sh "docker build -t helix:${GIT_COMMIT_HASH} ."
             }
         }
-        stage('Build') {
+
+        stage('Push Docker image') {
+            // when {
+            //     expression {
+            //         return env.GIT_BRANCH && (env.GIT_BRANCH.contains("snapshot-") || env.GIT_BRANCH.contains("release-"))
+            //     }
+            // }
             steps {
-                sh 'dotnet build --configuration Release'
+                script {
+                    sh "docker tag helix:${GIT_COMMIT_HASH} viyd/military:helix-${GIT_COMMIT_HASH}"
+                    withCredentials([string(credentialsId: 'DOCKERHUB', variable: 'DOCKERHUB')]) {
+                        sh "echo $DOCKERHUB | docker login -u viyd --password-stdin"
+                        sh "docker push viyd/military:helix-${GIT_COMMIT_HASH}"
+                    }
+                }
             }
         }
-        stage('Publish') {
-            steps {
-                sh 'dotnet publish --configuration Release'
-            }
-        }
+
     }
 }
