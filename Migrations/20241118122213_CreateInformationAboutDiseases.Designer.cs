@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalRecords.Data;
@@ -11,9 +12,11 @@ using PersonalRecords.Data;
 namespace PersonalRecords.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118122213_CreateInformationAboutDiseases")]
+    partial class CreateInformationAboutDiseases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,57 +24,6 @@ namespace PersonalRecords.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("PersonalRecords.Models.AdditionalTraining", b =>
-                {
-                    b.Property<int>("TrainingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TrainingId"));
-
-                    b.Property<DateOnly>("FinishedTraining")
-                        .HasColumnType("date");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PersonalRecordId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Soname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("StartedTraining")
-                        .HasColumnType("date");
-
-                    b.Property<string>("TrainingCity")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("TrainingCountry")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("TrainingDurationDays")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TrainingName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("TrainingId");
-
-                    b.HasIndex("PersonalRecordId");
-
-                    b.ToTable("AdditionalTraining");
-                });
 
             modelBuilder.Entity("PersonalRecords.Models.FamilyContacts", b =>
                 {
@@ -109,11 +61,11 @@ namespace PersonalRecords.Migrations
 
             modelBuilder.Entity("PersonalRecords.Models.InformationAboutDiseases", b =>
                 {
-                    b.Property<int>("InformationAboutDiseasesId")
+                    b.Property<int>("InformationDetailsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("InformationAboutDiseasesId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("InformationDetailsId"));
 
                     b.Property<DateOnly>("FinishedToIll")
                         .HasColumnType("date");
@@ -142,53 +94,11 @@ namespace PersonalRecords.Migrations
                     b.Property<bool>("StayInHospital")
                         .HasColumnType("boolean");
 
-                    b.HasKey("InformationAboutDiseasesId");
+                    b.HasKey("InformationDetailsId");
 
                     b.HasIndex("PersonalRecordId");
 
                     b.ToTable("InformationAboutDiseases");
-                });
-
-            modelBuilder.Entity("PersonalRecords.Models.InformationAboutVacation", b =>
-                {
-                    b.Property<int>("InformationAboutVacationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("InformationAboutVacationId"));
-
-                    b.Property<DateOnly>("FinishedVacation")
-                        .HasColumnType("date");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsPaidVacation")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PersonalRecordId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Soname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("StartedVacation")
-                        .HasColumnType("date");
-
-                    b.Property<int>("VacationDurationDays")
-                        .HasColumnType("integer");
-
-                    b.HasKey("InformationAboutVacationId");
-
-                    b.HasIndex("PersonalRecordId");
-
-                    b.ToTable("InformationAboutVacation");
                 });
 
             modelBuilder.Entity("PersonalRecords.Models.PersonalRecord", b =>
@@ -291,17 +201,6 @@ namespace PersonalRecords.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PersonalRecords.Models.AdditionalTraining", b =>
-                {
-                    b.HasOne("PersonalRecords.Models.PersonalRecord", "PersonalRecord")
-                        .WithMany("AdditionalTraining")
-                        .HasForeignKey("PersonalRecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PersonalRecord");
-                });
-
             modelBuilder.Entity("PersonalRecords.Models.FamilyContacts", b =>
                 {
                     b.HasOne("PersonalRecords.Models.PersonalRecord", "PersonalRecord")
@@ -324,26 +223,11 @@ namespace PersonalRecords.Migrations
                     b.Navigation("PersonalRecord");
                 });
 
-            modelBuilder.Entity("PersonalRecords.Models.InformationAboutVacation", b =>
-                {
-                    b.HasOne("PersonalRecords.Models.PersonalRecord", "PersonalRecord")
-                        .WithMany("InformationAboutVacation")
-                        .HasForeignKey("PersonalRecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PersonalRecord");
-                });
-
             modelBuilder.Entity("PersonalRecords.Models.PersonalRecord", b =>
                 {
-                    b.Navigation("AdditionalTraining");
-
                     b.Navigation("FamilyContacts");
 
                     b.Navigation("InformationAboutDiseases");
-
-                    b.Navigation("InformationAboutVacation");
                 });
 #pragma warning restore 612, 618
         }

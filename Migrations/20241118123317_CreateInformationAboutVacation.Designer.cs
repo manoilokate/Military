@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalRecords.Data;
@@ -11,9 +12,11 @@ using PersonalRecords.Data;
 namespace PersonalRecords.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118123317_CreateInformationAboutVacation")]
+    partial class CreateInformationAboutVacation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,57 +24,6 @@ namespace PersonalRecords.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("PersonalRecords.Models.AdditionalTraining", b =>
-                {
-                    b.Property<int>("TrainingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TrainingId"));
-
-                    b.Property<DateOnly>("FinishedTraining")
-                        .HasColumnType("date");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("PersonalRecordId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Soname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("StartedTraining")
-                        .HasColumnType("date");
-
-                    b.Property<string>("TrainingCity")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("TrainingCountry")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("TrainingDurationDays")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("TrainingName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("TrainingId");
-
-                    b.HasIndex("PersonalRecordId");
-
-                    b.ToTable("AdditionalTraining");
-                });
 
             modelBuilder.Entity("PersonalRecords.Models.FamilyContacts", b =>
                 {
@@ -291,17 +243,6 @@ namespace PersonalRecords.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PersonalRecords.Models.AdditionalTraining", b =>
-                {
-                    b.HasOne("PersonalRecords.Models.PersonalRecord", "PersonalRecord")
-                        .WithMany("AdditionalTraining")
-                        .HasForeignKey("PersonalRecordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PersonalRecord");
-                });
-
             modelBuilder.Entity("PersonalRecords.Models.FamilyContacts", b =>
                 {
                     b.HasOne("PersonalRecords.Models.PersonalRecord", "PersonalRecord")
@@ -337,8 +278,6 @@ namespace PersonalRecords.Migrations
 
             modelBuilder.Entity("PersonalRecords.Models.PersonalRecord", b =>
                 {
-                    b.Navigation("AdditionalTraining");
-
                     b.Navigation("FamilyContacts");
 
                     b.Navigation("InformationAboutDiseases");

@@ -12,6 +12,9 @@ namespace PersonalRecords.Data
     public DbSet<User> Users { get; set; }
     public DbSet<FamilyContacts> FamilyContacts { get; set; }
     public DbSet<PersonalRecord> PersonalRecords { get; set; }
+    public DbSet<InformationAboutDiseases> InformationAboutDiseases { get; set; }
+    public DbSet<InformationAboutVacation> InformationAboutVacation { get; set; }
+    public DbSet<AdditionalTraining> AdditionalTraining { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PersonalRecord>().HasData(
