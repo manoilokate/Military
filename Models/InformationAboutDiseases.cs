@@ -24,13 +24,14 @@ namespace PersonalRecords.Models
         public DateOnly FinishedToIll { get; set; }
         public int IllnessDurationDays { get; set; }
 
-        public void CalculateIllnessDuration()
+        public void CalculateVacationDuration()
         {
             DateTime startDate = StartedToIll.ToDateTime(new TimeOnly(0, 0));
             DateTime endDate = FinishedToIll.ToDateTime(new TimeOnly(0, 0));
 
             IllnessDurationDays = (endDate - startDate).Days;
         }
+
         [Required]
         public bool StayInHospital {  get; set; }
     }

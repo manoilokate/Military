@@ -1,0 +1,78 @@
+﻿@model IEnumerable<PersonalRecord>
+
+<h3>Фільтрація за:</h3>
+<form asp-action="Index" method="post">
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label for="Rank" class="form-label">Званням:</label>
+        </div>
+        <div class="col-md-6">
+            <input type="text" id="Rank" name="Rank" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label for="NumberOrganization" class="form-label">Номером частини:</label>
+        </div>
+        <div class="col-md-6">
+            <input type="text" id="NumberOrganization" name="NumberOrganization" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label for="Education" class="form-label">Освітою:</label>
+        </div>
+        <div class="col-md-6">
+            <select id="Education" name="Education" class="form-select">
+                <option value="">Виберіть освіту</option>
+                <option value="Неповна середня">Неповна середня</option>
+                <option value="Повна середня">Повна середня</option>
+                <option value="Неповна вища">Неповна вища</option>
+                <option value="Повна вища">Повна вища</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Фільтрувати</button>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <h2>Результати:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Дата народження</th>
+                <th>Початок служби</th>
+                <th>Звання</th>
+                <th>Номер частини</th>
+                <th>Освіта</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>@person.LastName</td>
+                    <td>@person.FirstName</td>
+                    <td>@person.Soname</td>
+                    <td>@person.DateOfBirth</td>
+                    <td>@person.DateOfStartWork</td>
+                    <td>@person.Rank</td>
+                    <td>@person.NumberOrganization</td>
+                    <td>@person.Education</td>
+                    <td>@person.PhoneNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Немає результатів для відображення</p>
+}

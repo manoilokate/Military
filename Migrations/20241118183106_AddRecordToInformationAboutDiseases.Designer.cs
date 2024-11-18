@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalRecords.Data;
@@ -11,9 +12,11 @@ using PersonalRecords.Data;
 namespace PersonalRecords.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118183106_AddRecordToInformationAboutDiseases")]
+    partial class AddRecordToInformationAboutDiseases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,18 +162,6 @@ namespace PersonalRecords.Migrations
                             PersonalRecordId = 1,
                             Soname = "Андрійович",
                             StartedToIll = new DateOnly(2020, 11, 18),
-                            StayInHospital = false
-                        },
-                        new
-                        {
-                            InformationAboutDiseasesId = 2,
-                            FinishedToIll = new DateOnly(2022, 11, 28),
-                            FirstName = "Остап",
-                            IllnessDurationDays = 0,
-                            LastName = "Бедненко",
-                            PersonalRecordId = 2,
-                            Soname = "Валентинович",
-                            StartedToIll = new DateOnly(2022, 11, 18),
                             StayInHospital = false
                         });
                 });
