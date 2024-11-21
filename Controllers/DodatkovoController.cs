@@ -17,12 +17,12 @@ namespace PersonalRecords.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult ProcessPersonalRecord(PersonalRecord model, string action)
+        public IActionResult Index(PersonalRecord model, string action)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrorMessage = "Введені дані некоректні";
-                return View("Index", model);
+                return View(model);
             }
 
             switch (action)
@@ -32,8 +32,8 @@ namespace PersonalRecords.Controllers
                         .Where(c => c.PersonalRecord.LastName == model.LastName && c.PersonalRecord.FirstName == model.FirstName)
                         .ToList();
                     ViewBag.Title = "Контактна інформація";
-                    ViewBag.Data = contacts.Select(c => $"Ким доводиться: {c.Relationship}, Телефон: {c.PhoneNumber}," +
-                    $" Email: {c.Email}, Адреса: {c.Address}");
+                    ViewBag.Data = contacts.Select(c => $"Ким доводиться: {c.Relationship}, Телефон: {c.PhoneNumber}, " +
+                    $"Email: {c.Email}, Адреса: {c.Address}");
                     break;
 
                 case "SickLeaves":
@@ -41,8 +41,8 @@ namespace PersonalRecords.Controllers
                         .Where(c => c.PersonalRecord.LastName == model.LastName && c.PersonalRecord.FirstName == model.FirstName)
                         .ToList();
                     ViewBag.Title = "Інформація про лікарняні";
-                    ViewBag.Data = sickLeaves.Select(c => $"Початок: {c.StartedToIll}, Кінець: {c.FinishedToIll}," +
-                    $"Загальна к-сть днів: {c.IllnessDurationDays}, Перебував(-ла) в лікарні:{c.StayInHospital}");
+                    ViewBag.Data = sickLeaves.Select(c => $"Початок: {c.StartedToIll}, Кінець: {c.FinishedToIll}, " +
+                    $"Загальна к-сть днів: {c.IllnessDurationDays}, Перебував(-ла) в лікарні: {c.StayInHospital}");
                     break;
 
                 case "Vacations":
@@ -50,7 +50,7 @@ namespace PersonalRecords.Controllers
                         .Where(c => c.PersonalRecord.LastName == model.LastName && c.PersonalRecord.FirstName == model.FirstName)
                         .ToList();
                     ViewBag.Title = "Інформація про відпустки";
-                    ViewBag.Data = vacations.Select(c => $"Початок: {c.StartedVacation}, Кінець: {c.FinishedVacation}," +
+                    ViewBag.Data = vacations.Select(c => $"Початок: {c.StartedVacation}, Кінець: {c.FinishedVacation}, " +
                     $"Загальна к-сть днів: {c.VacationDurationDays}, Оплачувана відпустка: {c.IsPaidVacation}");
                     break;
 
@@ -59,18 +59,19 @@ namespace PersonalRecords.Controllers
                         .Where(c => c.PersonalRecord.LastName == model.LastName && c.PersonalRecord.FirstName == model.FirstName)
                         .ToList();
                     ViewBag.Title = "Інформація про навчання";
-                    ViewBag.Data = trainings.Select(c => $"Назва: {c.TrainingName}, Країна: {c.TrainingCountry}," +
-                    $"Місто: {c.TrainingCity}, Початок: {c.StartedTraining}, Кінець: {c.FinishedTraining}," +
-                    $" Загальна к-сть днів: {c.TrainingDurationDays}");
+                    ViewBag.Data = trainings.Select(c => $"Назва: {c.TrainingName}, Країна: {c.TrainingCountry}, " +
+                    $"Місто: {c.TrainingCity}, Початок: {c.StartedTraining}, Кінець: {c.FinishedTraining}, " +
+                    $"Загальна к-сть днів: {c.TrainingDurationDays}");
                     break;
 
                 default:
                     ViewBag.ErrorMessage = "Невідома дія";
-                    return View("Index", model);
+                    return View(model);
             }
 
-            return View("Index", model);
+            return View(model);
         }
     }
 }
+
 

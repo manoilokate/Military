@@ -24,7 +24,7 @@
     <button type="submit" class="btn btn-primary">Пошук</button>
 </form>
 
-@if (Model != null) 
+@if (Model != null)
 {
     <table class="table">
         <thead>
@@ -41,21 +41,30 @@
             </tr>
         </thead>
         <tbody>
-                <tr>
-                    <td>@Model.LastName</td>
-                    <td>@Model.FirstName</td>
-                    <td>@Model.Soname</td>
-                    <td>@Model.DateOfBirth</td>
-                    <td>@Model.DateOfStartWork</td>
-                    <td>@Model.Rank</td>
-                    <td>@Model.NumberOrganization</td>
-                    <td>@Model.Education</td>
-                    <td>@Model.PhoneNumber</td>
-                </tr>
+            <tr>
+                <td>@Model.LastName</td>
+                <td>@Model.FirstName</td>
+                <td>@Model.Soname</td>
+                <td>@Model.DateOfBirth</td>
+                <td>@Model.DateOfStartWork</td>
+                <td>@Model.Rank</td>
+                <td>@Model.NumberOrganization</td>
+                <td>@Model.Education</td>
+                <td>@Model.PhoneNumber</td>
+            </tr>
         </tbody>
     </table>
-    <a href="/Dodatkovo" class="btn btn-primary">Переглянути додаткову інформацію</a>
 
+    <h3>Переглянути додаткову інформацію:</h3>
+    <form method="post" asp-action="Index">
+        <input type="hidden" asp-for="LastName" />
+        <input type="hidden" asp-for="FirstName" />
+        <input type="hidden" asp-for="Soname" />
+        <button type="submit" class="btn btn-primary" name="action" value="Contacts">Контактна інформація</button>
+        <button type="submit" class="btn btn-primary" name="action" value="SickLeaves">Інформація про лікарняні</button>
+        <button type="submit" class="btn btn-primary" name="action" value="Vacations">Інформація про відпустки</button>
+        <button type="submit" class="btn btn-primary" name="action" value="Trainings">Інформація про навчання</button>
+    </form>
 }
 else if (ViewBag.IsSearchPerformed == true)
 {

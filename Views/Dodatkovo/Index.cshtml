@@ -21,8 +21,30 @@
             <input asp-for="Soname" class="form-control" />
         </div>
     </div>
+
+    <!-- Кнопки для вибору категорії -->
     <button type="submit" class="btn btn-primary" name="action" value="Contacts">Контактна інформація</button>
     <button type="submit" class="btn btn-primary" name="action" value="SickLeaves">Інформація про лікарняні</button>
     <button type="submit" class="btn btn-primary" name="action" value="Vacations">Інформація про відпустки</button>
     <button type="submit" class="btn btn-primary" name="action" value="Trainings">Інформація про навчання</button>
 </form>
+
+<!-- Виведення результатів -->
+@if (ViewBag.Title != null)
+{
+    <h3>@ViewBag.Title</h3>
+}
+
+@if (ViewBag.Data != null)
+{
+    <ul>
+        @foreach (var dataItem in ViewBag.Data)
+        {
+            <li>@dataItem</li>
+        }
+    </ul>
+}
+else if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}

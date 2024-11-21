@@ -18,6 +18,7 @@ namespace PersonalRecords.Data
     public DbSet<AdditionalTraining> AdditionalTraining { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+          
             modelBuilder.Entity<PersonalRecord>().HasData(
                 new PersonalRecord { Id = 1, FirstName = "Іван", 
                     LastName = "Бондарчук",Soname = "Андрійович", DateOfBirth = "1990-01-01",DateOfStartWork = "2008-06-01", 
@@ -36,30 +37,7 @@ namespace PersonalRecords.Data
                     PhoneNumber = "0957800116"
                 }
             );
-            modelBuilder.Entity<InformationAboutDiseases>().HasData(
-                new InformationAboutDiseases
-                {
-                    InformationAboutDiseasesId =1,
-                    PersonalRecordId=1,
-                    FirstName ="Іван",
-                    LastName="Бондарчук",
-                    Soname="Андрійович",
-                    StartedToIll= new DateOnly(2020, 11, 18),
-                    FinishedToIll= new DateOnly(2020, 11, 28),
-                    StayInHospital =false
-                },
-                new InformationAboutDiseases
-                {
-                    InformationAboutDiseasesId = 2,
-                    PersonalRecordId = 2,
-                    FirstName = "Остап",
-                    LastName = "Бедненко",
-                    Soname = "Валентинович",
-                    StartedToIll = new DateOnly(2022, 11, 18),
-                    FinishedToIll = new DateOnly(2022, 11, 28),
-                    StayInHospital = false
-                }
-            );
+            
 
         }
     }
