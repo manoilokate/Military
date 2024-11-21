@@ -57,18 +57,147 @@
 
     <h3>Переглянути додаткову інформацію:</h3>
     <form method="post" asp-action="Index">
-        <input type="hidden" asp-for="LastName" />
-        <input type="hidden" asp-for="FirstName" />
-        <input type="hidden" asp-for="Soname" />
-        <button type="submit" class="btn btn-primary" name="action" value="Contacts">Контактна інформація</button>
-        <button type="submit" class="btn btn-primary" name="action" value="SickLeaves">Інформація про лікарняні</button>
-        <button type="submit" class="btn btn-primary" name="action" value="Vacations">Інформація про відпустки</button>
-        <button type="submit" class="btn btn-primary" name="action" value="Trainings">Інформація про навчання</button>
+        <input type="hidden" name="LastName" value="@Model.LastName" />
+        <input type="hidden" name="FirstName" value="@Model.FirstName" />
+        <input type="hidden" name="Soname" value="@Model.Soname" />
+
+        <div>
+            <button type="submit" name="action" value="Contacts" class="btn btn-primary">Контактна інформація</button>
+            <button type="submit" name="action" value="SickLeaves" class="btn btn-primary">Інформація про лікарняні</button>
+            <button type="submit" name="action" value="Vacations" class="btn btn-primary">Інформація про відпустки</button>
+            <button type="submit" name="action" value="Trainings" class="btn btn-primary">Інформація про навчання</button>
+        </div>
     </form>
+
+    @if (ViewBag.Title != null)
+    {
+        <h3>@ViewBag.Title</h3>
+        <ul>
+            @foreach (var item in ViewBag.Data)
+            {
+                <li>@item</li>
+            }
+        </ul>
+    }
 }
-else if (ViewBag.IsSearchPerformed == true)
+else if (ViewBag.Message != null)
 {
     <p>@ViewBag.Message</p>
+}
+@if (ViewBag.Title == "Контактна інформація")
+{
+        <h3>@ViewBag.Title</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Прізвище</th>
+                    <th>Ім'я</th>
+                    <th>По-батькові</th>
+                    <th>Ким доводиться</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Місто</th>
+                    <th>Адреса</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var c in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@c.LastName</td>
+                            <td>@c.FirstName</td>
+                            <td>@c.Soname</td>
+                            <td>@c.Relationship</td>
+                            <td>@c.PhoneNumber</td>
+                            <td>@c.Email</td>
+                            <td>@c.City</td>
+                            <td>@c.Address</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+
+@if (ViewBag.Title == "Інформація про лікарняні")
+{
+        <h3>@ViewBag.Title</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Початок</th>
+                    <th>Кінець</th>
+                    <th>Загальна к-сть днів</th>
+                    <th>Перебував(-ла) в лікарні</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var sickLeave in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@sickLeave.StartedToIll</td>
+                            <td>@sickLeave.FinishedToIll</td>
+                            <td>@sickLeave.IllnessDurationDays</td>
+                            <td>@sickLeave.StayInHospital</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+
+@if (ViewBag.Title == "Інформація про відпустки")
+{
+        <h3>@ViewBag.Title</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Початок</th>
+                    <th>Кінець</th>
+                    <th>Загальна к-сть днів</th>
+                    <th>Оплачувана відпустка</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var vacation in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@vacation.StartedVacation</td>
+                            <td>@vacation.FinishedVacation</td>
+                            <td>@vacation.VacationDurationDays</td>
+                            <td>@vacation.IsPaidVacation</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+
+@if (ViewBag.Title == "Інформація про навчання")
+{
+        <h3>@ViewBag.Title</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Назва</th>
+                    <th>Країна</th>
+                    <th>Місто</th>
+                    <th>Початок</th>
+                    <th>Кінець</th>
+                    <th>Загальна к-сть днів</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var training in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@training.TrainingName</td>
+                            <td>@training.TrainingCountry</td>
+                            <td>@training.TrainingCity</td>
+                            <td>@training.StartedTraining</td>
+                            <td>@training.FinishedTraining</td>
+                            <td>@training.TrainingDurationDays</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
 }
 
 @section Scripts {

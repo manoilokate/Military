@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using PersonalRecords.Data;
 using DotNetEnv;
 
-var builder = WebApplication.CreateBuilder(args);
+var modelBuilder = WebApplication.CreateBuilder(args);
 
 DotNetEnv.Env.Load();
-builder.Configuration.AddEnvironmentVariables();
+modelBuilder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+modelBuilder.Services.AddControllersWithViews();
 
 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
 var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
@@ -17,10 +17,10 @@ var dbUser = Environment.GetEnvironmentVariable("DB_USER");
 var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
 var connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={dbPassword}";
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+modelBuilder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-var app = builder.Build();
+var app = modelBuilder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

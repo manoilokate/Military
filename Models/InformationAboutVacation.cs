@@ -10,7 +10,6 @@ namespace PersonalRecords.Models
         public int InformationAboutVacationId { get; set; }
         [Required]
         public int PersonalRecordId { get; set; }
-
         [ForeignKey("PersonalRecordId")]
         public virtual PersonalRecord PersonalRecord { get; set; }
         [Required]
@@ -23,15 +22,8 @@ namespace PersonalRecords.Models
         public DateOnly StartedVacation { get; set; }
         [Required]
         public DateOnly FinishedVacation { get; set; }
+        [Required]
         public int VacationDurationDays { get; set; }
-
-        public void CalculateVacationDuration()
-        {
-            DateTime startDate = StartedVacation.ToDateTime(new TimeOnly(0, 0));
-            DateTime endDate = FinishedVacation.ToDateTime(new TimeOnly(0, 0));
-
-            VacationDurationDays = (endDate - startDate).Days;
-        }
         [Required]
         public bool IsPaidVacation { get; set; }
     }
