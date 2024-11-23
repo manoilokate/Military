@@ -1,30 +1,32 @@
 ﻿@model IEnumerable<PersonalRecord>
 
-<h3>Фільтрація за:</h3>
+<h2>Фільтрування особових справ</h2>
+
 <form asp-action="Index" method="post">
-    <div class="row mb-3">
+    <div class="row mb-3" style="margin-top:30px">
+        <label style="margin-bottom:20px; font-size:18px">Оберіть критерій(-ії) для фільтрування:</label>
         <div class="col-md-2">
-            <label for="Rank" class="form-label">Званням:</label>
+            <label for="Rank" class="form-label">Звання:</label>
         </div>
         <div class="col-md-6">
-            <input type="text" id="Rank" name="Rank" class="form-control" />
+            <input type="text" id="Rank" name="Rank" class="form-control" placeholder="Сержант" />
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-md-2">
-            <label for="NumberOrganization" class="form-label">Номером частини:</label>
+            <label for="NumberOrganization" class="form-label">Номер частини:</label>
         </div>
         <div class="col-md-6">
-            <input type="text" id="NumberOrganization" name="NumberOrganization" class="form-control" />
+            <input type="text" id="NumberOrganization" name="NumberOrganization" class="form-control" placeholder="А1234" />
         </div>
     </div>
     <div class="row mb-3">
         <div class="col-md-2">
-            <label for="Education" class="form-label">Освітою:</label>
+            <label for="Education" class="form-label">Освіта:</label>
         </div>
         <div class="col-md-6">
-            <select id="Education" name="Education" class="form-select">
-                <option value="">Виберіть освіту</option>
+            <select id="Education" name="Education" class="form-select" >
+                <option value="" disabled selected>Оберіть освіту</option>
                 <option value="Неповна середня">Неповна середня</option>
                 <option value="Повна середня">Повна середня</option>
                 <option value="Неповна вища">Неповна вища</option>
@@ -40,7 +42,7 @@
 @if (Model != null && Model.Any())
 {
     <h2>Результати:</h2>
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th>Прізвище</th>
@@ -72,7 +74,7 @@
         </tbody>
     </table>
 }
-else
+else if (ViewBag.Message != null)
 {
-    <p>Немає результатів для відображення</p>
+    <p>@ViewBag.Message</p>
 }

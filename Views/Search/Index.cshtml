@@ -55,7 +55,7 @@
         </tbody>
     </table>
 
-    <h3>Переглянути додаткову інформацію:</h3>
+    <h5 style="margin-bottom:15px">Переглянути додаткову інформацію:</h5>
     <form method="post" asp-action="Index">
         <input type="hidden" name="LastName" value="@Model.LastName" />
         <input type="hidden" name="FirstName" value="@Model.FirstName" />
@@ -71,22 +71,16 @@
 
     @if (ViewBag.Title != null)
     {
-        <h3>@ViewBag.Title</h3>
-        <ul>
-            @foreach (var item in ViewBag.Data)
-            {
-                <li>@item</li>
-            }
-        </ul>
+        <h5 style="margin-top:20px">@ViewBag.Title</h5>
     }
 }
 else if (ViewBag.Message != null)
 {
     <p>@ViewBag.Message</p>
+    <a asp-action="Add" class="btn btn-primary">Додати запис</a>
 }
 @if (ViewBag.Title == "Контактна інформація")
-{
-        <h3>@ViewBag.Title</h3>
+{ 
         <table class="table">
             <thead>
                 <tr>
@@ -120,7 +114,6 @@ else if (ViewBag.Message != null)
 
 @if (ViewBag.Title == "Інформація про лікарняні")
 {
-        <h3>@ViewBag.Title</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -137,7 +130,7 @@ else if (ViewBag.Message != null)
                             <td>@sickLeave.StartedToIll</td>
                             <td>@sickLeave.FinishedToIll</td>
                             <td>@sickLeave.IllnessDurationDays</td>
-                            <td>@sickLeave.StayInHospital</td>
+                            <td>@(sickLeave.StayInHospital ? "Так" : "Ні")</td>
                         </tr>
             }
             </tbody>
@@ -146,7 +139,6 @@ else if (ViewBag.Message != null)
 
 @if (ViewBag.Title == "Інформація про відпустки")
 {
-        <h3>@ViewBag.Title</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -163,7 +155,7 @@ else if (ViewBag.Message != null)
                             <td>@vacation.StartedVacation</td>
                             <td>@vacation.FinishedVacation</td>
                             <td>@vacation.VacationDurationDays</td>
-                            <td>@vacation.IsPaidVacation</td>
+                            <td>@(vacation.IsPaidVacation ? "Так" : "Ні")</td>
                         </tr>
             }
             </tbody>
@@ -172,7 +164,6 @@ else if (ViewBag.Message != null)
 
 @if (ViewBag.Title == "Інформація про навчання")
 {
-        <h3>@ViewBag.Title</h3>
         <table class="table">
             <thead>
                 <tr>

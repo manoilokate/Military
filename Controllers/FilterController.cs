@@ -37,8 +37,13 @@ namespace PersonalRecords.Controllers
             {
                 filteredPeople = filteredPeople.Where(p => p.Education == filter.Education);
             }
-
             var result = filteredPeople.ToList();
+
+            if (!result.Any()) // Перевіряємо, чи результат порожній
+            {
+                ViewBag.Message = "Запис не знайдено";
+            }
+
             return View("Index", result);
         }
     }

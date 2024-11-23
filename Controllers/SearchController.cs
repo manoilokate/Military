@@ -19,6 +19,10 @@ namespace PersonalRecords.Controllers
         {
             return View();
         }
+        public IActionResult Add()
+        {
+            return View("~/Views/Create/Index.cshtml");
+        }
 
         [HttpPost]
         public IActionResult Index(string LastName, string FirstName, string Soname, string action)
@@ -26,7 +30,6 @@ namespace PersonalRecords.Controllers
             PersonalRecord? matchedRecord = null;
             bool isSearchPerformed = false;
 
-            // Пошук особистого запису за параметрами LastName, FirstName, Soname
             if (!string.IsNullOrEmpty(LastName) || !string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(Soname))
             {
                 isSearchPerformed = true;
@@ -40,7 +43,6 @@ namespace PersonalRecords.Controllers
 
             ViewBag.IsSearchPerformed = isSearchPerformed;
 
-            // Якщо запис знайдений, виконуємо обробку дій
             if (matchedRecord != null)
             {
                 switch (action)
@@ -50,7 +52,7 @@ namespace PersonalRecords.Controllers
                             .Where(c => c.PersonalRecordId == matchedRecord.Id)
                             .ToList();
                         ViewBag.Title = "Контактна інформація";
-                        ViewBag.Data = contacts;  // Передаємо список об'єктів FamilyContact
+                        ViewBag.Data = contacts;  
                         break;
 
                     case "SickLeaves":
@@ -58,7 +60,7 @@ namespace PersonalRecords.Controllers
                             .Where(c => c.PersonalRecordId == matchedRecord.Id)
                             .ToList();
                         ViewBag.Title = "Інформація про лікарняні";
-                        ViewBag.Data = sickLeaves;  // Передаємо список об'єктів
+                        ViewBag.Data = sickLeaves;  
                         break;
 
                     case "Vacations":
@@ -66,7 +68,7 @@ namespace PersonalRecords.Controllers
                             .Where(c => c.PersonalRecordId == matchedRecord.Id)
                             .ToList();
                         ViewBag.Title = "Інформація про відпустки";
-                        ViewBag.Data = vacations;  // Передаємо список об'єктів
+                        ViewBag.Data = vacations;  
                         break;
 
                     case "Trainings":
@@ -74,7 +76,7 @@ namespace PersonalRecords.Controllers
                             .Where(c => c.PersonalRecordId == matchedRecord.Id)
                             .ToList();
                         ViewBag.Title = "Інформація про навчання";
-                        ViewBag.Data = trainings;  // Передаємо список об'єктів
+                        ViewBag.Data = trainings;  
                         break;
 
                     default:

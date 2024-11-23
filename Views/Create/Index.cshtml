@@ -7,61 +7,75 @@
     </div>
 }
 
+<h2 class="text-center">Додавання особової справи</h2>
+
 <form method="post">
-    <div class="row mb-3 p-1">
-        <label asp-for="Id" class="p-0">Введіть айді:</label>
-        <input asp-for="Id" class="form-control" />
-        <span asp-validation-for="Id" class="text-danger" style="font-size:12px"></span>
+    <div class="h-auto row d-flex justify-content-center gap-3" style="margin-top:30px">
+        <div class="col-md-4">
+            <div class="row mb-3 p-1">
+                <label asp-for="Id" class="p-0">Введіть id:</label>
+                <input asp-for="Id" class="form-control" placeholder="123" min="0"/>
+                <span asp-validation-for="Id" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
+                <input asp-for="LastName" class="form-control" placeholder="Іваненко" />
+                <span asp-validation-for="LastName" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="FirstName" class="p-0">Введіть ім'я:</label>
+                <input asp-for="FirstName" class="form-control" placeholder="Іван" />
+                <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="Soname" class="p-0">Введіть по-батькові:</label>
+                <input asp-for="Soname" class="form-control" placeholder="Іванович" />
+                <span asp-validation-for="Soname" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="DateOfBirth" class="p-0">Введіть дату народження:</label>
+                <input asp-for="DateOfBirth" class="form-control" placeholder="2000-12-20" />
+                <span asp-validation-for="DateOfBirth" class="text-danger" style="font-size:12px"></span>
+            </div>
+        </div>
+        <div class="col-md-4 ms-2">
+            <div class="row mb-3 p-1">
+                <label asp-for="DateOfStartWork" class="p-0">Введіть дату початку роботи:</label>
+                <input asp-for="DateOfStartWork" class="form-control" placeholder="2020-12-20" />
+                <span asp-validation-for="DateOfStartWork" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="Rank" class="p-0">Введіть звання:</label>
+                <input asp-for="Rank" class="form-control" placeholder="Сержант" />
+                <span asp-validation-for="Rank" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="NumberOrganization" class="p-0">Введіть номер військової частини:</label>
+                <input asp-for="NumberOrganization" class="form-control" placeholder="А2345" />
+                <span asp-validation-for="NumberOrganization" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="Education" class="p-0">Вкажіть освіту:</label>
+                <select asp-for="Education" class="form-control">
+                    <option value="" disabled selected>Оберіть освіту</option>
+                    <option value="Неповна середня">Неповна середня</option>
+                    <option value="Повна середня">Повна середня</option>
+                    <option value="Неповна вища">Неповна вища</option>
+                    <option value="Повна вища">Повна вища</option>
+                </select>
+                <span asp-validation-for="Education" class="text-danger" style="font-size:12px"></span>
+            </div>
+            <div class="row mb-3 p-1">
+                <label asp-for="PhoneNumber" class="p-0">Введіть номер телефону:</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="0971234567" />
+                <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size:12px"></span>
+            </div>
+        </div>
     </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger" style="font-size:12px"></span>
+    <div class="row">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary mt-3">Додати особову справу</button>
+        </div>
     </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="FirstName" class="p-0">Введіть ім'я:</label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="Soname" class="p-0">Введіть по-батькові:</label>
-        <input asp-for="Soname" class="form-control" />
-        <span asp-validation-for="Soname" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="DateOfBirth" class="p-0">Введіть дату народження:</label>
-        <input asp-for="DateOfBirth"  class="form-control" />
-        <span asp-validation-for="DateOfBirth" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="DateOfStartWork" class="p-0">Введіть дату початку роботи:</label>
-        <input asp-for="DateOfStartWork" class="form-control" />
-        <span asp-validation-for="DateOfStartWork" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="Rank" class="p-0">Введіть звання:</label>
-        <input asp-for="Rank" class="form-control" />
-        <span asp-validation-for="Rank" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="NumberOrganization" class="p-0">Введіть номер військової частини:</label>
-        <input asp-for="NumberOrganization" class="form-control" />
-        <span asp-validation-for="NumberOrganization" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="Education" class="p-0">Вкажіть освіту:</label>
-        <select asp-for="Education" class="form-control">
-            <option value="Неповна середня">Неповна середня</option>
-            <option value="Повна середня">Повна середня</option>
-            <option value="Неповна вища">Неповна вища</option>
-            <option value="Повна вища">Повна вища</option>
-        </select>
-        <span asp-validation-for="Education" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <div class="row mb-3 p-1">
-        <label asp-for="PhoneNumber" class="p-0">Введіть номер телефону (починаючи з 0):</label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger" style="font-size:12px"></span>
-    </div>
-    <button type="submit" class="btn btn-primary">Додати особову справу</button>
+
 </form>
