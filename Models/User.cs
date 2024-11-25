@@ -13,5 +13,7 @@ namespace PersonalRecords.Models
         [Required]
         [StringLength(25)]
         public string Password { get; set; }
+        [Required]
+        public string Role {  get; set; }
     }
 }

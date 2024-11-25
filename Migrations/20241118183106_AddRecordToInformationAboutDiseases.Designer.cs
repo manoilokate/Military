@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalRecords.Data;
@@ -11,9 +12,11 @@ using PersonalRecords.Data;
 namespace PersonalRecords.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118183106_AddRecordToInformationAboutDiseases")]
+    partial class AddRecordToInformationAboutDiseases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,36 +74,6 @@ namespace PersonalRecords.Migrations
                     b.HasIndex("PersonalRecordId");
 
                     b.ToTable("AdditionalTraining");
-
-                    b.HasData(
-                        new
-                        {
-                            TrainingId = 1,
-                            FinishedTraining = new DateOnly(2020, 12, 10),
-                            FirstName = "Остап",
-                            LastName = "Бедненко",
-                            PersonalRecordId = 2,
-                            Soname = "Валентинович",
-                            StartedTraining = new DateOnly(2020, 11, 10),
-                            TrainingCity = "Житомир",
-                            TrainingCountry = "Україна",
-                            TrainingDurationDays = 30,
-                            TrainingName = "Підвіщення кваліфікації"
-                        },
-                        new
-                        {
-                            TrainingId = 2,
-                            FinishedTraining = new DateOnly(2020, 10, 10),
-                            FirstName = "Іван",
-                            LastName = "Бондарчук",
-                            PersonalRecordId = 1,
-                            Soname = "Андрійович",
-                            StartedTraining = new DateOnly(2019, 10, 10),
-                            TrainingCity = "Луцьк",
-                            TrainingCountry = "Україна",
-                            TrainingDurationDays = 365,
-                            TrainingName = "Навчання зі стрільби "
-                        });
                 });
 
             modelBuilder.Entity("PersonalRecords.Models.FamilyContacts", b =>
@@ -115,19 +88,7 @@ namespace PersonalRecords.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -142,30 +103,11 @@ namespace PersonalRecords.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Soname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PersonalRecordId");
 
                     b.ToTable("FamilyContacts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Садова 18",
-                            City = "Миколаїв",
-                            Email = "bondarchyk.alla@gmail.com",
-                            FirstName = "Алла",
-                            LastName = "Бондарчук",
-                            PersonalRecordId = 1,
-                            PhoneNumber = "050997805",
-                            Relationship = "Дружина",
-                            Soname = "Василівна"
-                        });
                 });
 
             modelBuilder.Entity("PersonalRecords.Models.InformationAboutDiseases", b =>
@@ -212,26 +154,14 @@ namespace PersonalRecords.Migrations
                     b.HasData(
                         new
                         {
-                            InformationAboutDiseasesId = 2,
-                            FinishedToIll = new DateOnly(2022, 11, 10),
+                            InformationAboutDiseasesId = 1,
+                            FinishedToIll = new DateOnly(2020, 11, 28),
                             FirstName = "Іван",
-                            IllnessDurationDays = 12,
+                            IllnessDurationDays = 0,
                             LastName = "Бондарчук",
                             PersonalRecordId = 1,
                             Soname = "Андрійович",
-                            StartedToIll = new DateOnly(2022, 10, 28),
-                            StayInHospital = false
-                        },
-                        new
-                        {
-                            InformationAboutDiseasesId = 3,
-                            FinishedToIll = new DateOnly(2022, 8, 18),
-                            FirstName = "Остап",
-                            IllnessDurationDays = 10,
-                            LastName = "Бедненко",
-                            PersonalRecordId = 2,
-                            Soname = "Валентинович",
-                            StartedToIll = new DateOnly(2022, 8, 8),
+                            StartedToIll = new DateOnly(2020, 11, 18),
                             StayInHospital = false
                         });
                 });
@@ -276,32 +206,6 @@ namespace PersonalRecords.Migrations
                     b.HasIndex("PersonalRecordId");
 
                     b.ToTable("InformationAboutVacation");
-
-                    b.HasData(
-                        new
-                        {
-                            InformationAboutVacationId = 1,
-                            FinishedVacation = new DateOnly(2017, 9, 1),
-                            FirstName = "Іван",
-                            IsPaidVacation = true,
-                            LastName = "Бондарчук",
-                            PersonalRecordId = 1,
-                            Soname = "Андрійович",
-                            StartedVacation = new DateOnly(2017, 8, 15),
-                            VacationDurationDays = 16
-                        },
-                        new
-                        {
-                            InformationAboutVacationId = 2,
-                            FinishedVacation = new DateOnly(2019, 9, 21),
-                            FirstName = "Остап",
-                            IsPaidVacation = false,
-                            LastName = "Бедненко",
-                            PersonalRecordId = 2,
-                            Soname = "Валентинович",
-                            StartedVacation = new DateOnly(2019, 9, 15),
-                            VacationDurationDays = 6
-                        });
                 });
 
             modelBuilder.Entity("PersonalRecords.Models.PersonalRecord", b =>
@@ -393,10 +297,6 @@ namespace PersonalRecords.Migrations
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("character varying(25)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("UserName")
                         .IsRequired()

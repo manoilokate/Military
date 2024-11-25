@@ -15,8 +15,17 @@ namespace PersonalRecords.Controllers
         {
             _context = context;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Add()
+        {
+            return View("~/Views/Create/Index.cshtml");
+        }
 
-        public IActionResult Index(string LastName, string FirstName, string Soname)
+        [HttpPost]
+        public IActionResult Index(string LastName, string FirstName, string Soname, string action)
         {
             PersonalRecord? matchedRecord = null;
             bool isSearchPerformed = false;
@@ -36,13 +45,53 @@ namespace PersonalRecords.Controllers
 
             if (matchedRecord != null)
             {
-                return View("Index", matchedRecord);
+                switch (action)
+                {
+                    case "Contacts":
+                        var contacts = _context.FamilyContacts
+                            .Where(c => c.PersonalRecordId == matchedRecord.Id)
+                            .ToList();
+                        ViewBag.Title = "Контактна інформація";
+                        ViewBag.Data = contacts;  
+                        break;
+
+                    case "SickLeaves":
+                        var sickLeaves = _context.InformationAboutDiseases
+                            .Where(c => c.PersonalRecordId == matchedRecord.Id)
+                            .ToList();
+                        ViewBag.Title = "Інформація про лікарняні";
+                        ViewBag.Data = sickLeaves;  
+                        break;
+
+                    case "Vacations":
+                        var vacations = _context.InformationAboutVacation
+                            .Where(c => c.PersonalRecordId == matchedRecord.Id)
+                            .ToList();
+                        ViewBag.Title = "Інформація про відпустки";
+                        ViewBag.Data = vacations;  
+                        break;
+
+                    case "Trainings":
+                        var trainings = _context.AdditionalTraining
+                            .Where(c => c.PersonalRecordId == matchedRecord.Id)
+                            .ToList();
+                        ViewBag.Title = "Інформація про навчання";
+                        ViewBag.Data = trainings;  
+                        break;
+
+                    default:
+                        ViewBag.ErrorMessage = "Невідома дія";
+                        return View(matchedRecord);
+                }
+
+                return View(matchedRecord);
             }
             else
             {
                 ViewBag.Message = "Запис не знайдено";
-                return View("Index");
+                return View();
             }
         }
+
     }
 }

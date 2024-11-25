@@ -21,14 +21,13 @@ namespace PersonalRecords.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(PersonalRecord personalRecord)
         {
-            
             if (!ModelState.IsValid)
             {
                 foreach (var modelState in ModelState.Values)
                 {
                     foreach (var error in modelState.Errors)
                     {
-                           Debug.WriteLine($"Помилка: {error.ErrorMessage}");
+                        Debug.WriteLine($"Помилка: {error.ErrorMessage}");
                     }
                 }
                 return View(personalRecord);
@@ -40,6 +39,5 @@ namespace PersonalRecords.Controllers
             TempData["Message"] = "Запис успішно додано!";
             return RedirectToAction("Index");
         }
-
     }
 }

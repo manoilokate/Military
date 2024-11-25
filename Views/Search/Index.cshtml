@@ -7,27 +7,24 @@
         <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
         <div class="col-6">
             <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger" style="font-size:12px"></span>
         </div>
     </div>
     <div class="row mb-3 p-1">
         <label asp-for="FirstName" class="p-0">Введіть ім'я:</label>
         <div class="col-6">
             <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger" style="font-size:12px"></span>
         </div>
     </div>
     <div class="row mb-3 p-1">
         <label asp-for="Soname" class="p-0">Введіть по-батькові:</label>
         <div class="col-6">
             <input asp-for="Soname" class="form-control" />
-            <span asp-validation-for="Soname" class="text-danger" style="font-size:12px"></span>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Пошук</button>
 </form>
 
-@if (Model != null) 
+@if (Model != null)
 {
     <table class="table">
         <thead>
@@ -44,23 +41,154 @@
             </tr>
         </thead>
         <tbody>
-                <tr>
-                    <td>@Model.LastName</td>
-                    <td>@Model.FirstName</td>
-                    <td>@Model.Soname</td>
-                    <td>@Model.DateOfBirth</td>
-                    <td>@Model.DateOfStartWork</td>
-                    <td>@Model.Rank</td>
-                    <td>@Model.NumberOrganization</td>
-                    <td>@Model.Education</td>
-                    <td>@Model.PhoneNumber</td>
-                </tr>
+            <tr>
+                <td>@Model.LastName</td>
+                <td>@Model.FirstName</td>
+                <td>@Model.Soname</td>
+                <td>@Model.DateOfBirth</td>
+                <td>@Model.DateOfStartWork</td>
+                <td>@Model.Rank</td>
+                <td>@Model.NumberOrganization</td>
+                <td>@Model.Education</td>
+                <td>@Model.PhoneNumber</td>
+            </tr>
         </tbody>
     </table>
+
+    <h5 style="margin-bottom:15px">Переглянути додаткову інформацію:</h5>
+    <form method="post" asp-action="Index">
+        <input type="hidden" name="LastName" value="@Model.LastName" />
+        <input type="hidden" name="FirstName" value="@Model.FirstName" />
+        <input type="hidden" name="Soname" value="@Model.Soname" />
+
+        <div>
+            <button type="submit" name="action" value="Contacts" class="btn btn-primary">Контактна інформація</button>
+            <button type="submit" name="action" value="SickLeaves" class="btn btn-primary">Інформація про лікарняні</button>
+            <button type="submit" name="action" value="Vacations" class="btn btn-primary">Інформація про відпустки</button>
+            <button type="submit" name="action" value="Trainings" class="btn btn-primary">Інформація про навчання</button>
+        </div>
+    </form>
+
+    @if (ViewBag.Title != null)
+    {
+        <h5 style="margin-top:20px">@ViewBag.Title</h5>
+    }
 }
-else if (ViewBag.IsSearchPerformed == true)
+else if (ViewBag.Message != null)
 {
     <p>@ViewBag.Message</p>
+    <a asp-action="Add" class="btn btn-primary">Додати запис</a>
+}
+@if (ViewBag.Title == "Контактна інформація")
+{ 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Прізвище</th>
+                    <th>Ім'я</th>
+                    <th>По-батькові</th>
+                    <th>Ким доводиться</th>
+                    <th>Телефон</th>
+                    <th>Email</th>
+                    <th>Місто</th>
+                    <th>Адреса</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var c in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@c.LastName</td>
+                            <td>@c.FirstName</td>
+                            <td>@c.Soname</td>
+                            <td>@c.Relationship</td>
+                            <td>@c.PhoneNumber</td>
+                            <td>@c.Email</td>
+                            <td>@c.City</td>
+                            <td>@c.Address</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+
+@if (ViewBag.Title == "Інформація про лікарняні")
+{
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Початок</th>
+                    <th>Кінець</th>
+                    <th>Загальна к-сть днів</th>
+                    <th>Перебував(-ла) в лікарні</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var sickLeave in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@sickLeave.StartedToIll</td>
+                            <td>@sickLeave.FinishedToIll</td>
+                            <td>@sickLeave.IllnessDurationDays</td>
+                            <td>@(sickLeave.StayInHospital ? "Так" : "Ні")</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+
+@if (ViewBag.Title == "Інформація про відпустки")
+{
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Початок</th>
+                    <th>Кінець</th>
+                    <th>Загальна к-сть днів</th>
+                    <th>Оплачувана відпустка</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var vacation in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@vacation.StartedVacation</td>
+                            <td>@vacation.FinishedVacation</td>
+                            <td>@vacation.VacationDurationDays</td>
+                            <td>@(vacation.IsPaidVacation ? "Так" : "Ні")</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
+}
+
+@if (ViewBag.Title == "Інформація про навчання")
+{
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Назва</th>
+                    <th>Країна</th>
+                    <th>Місто</th>
+                    <th>Початок</th>
+                    <th>Кінець</th>
+                    <th>Загальна к-сть днів</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var training in ViewBag.Data)
+            {
+                        <tr>
+                            <td>@training.TrainingName</td>
+                            <td>@training.TrainingCountry</td>
+                            <td>@training.TrainingCity</td>
+                            <td>@training.StartedTraining</td>
+                            <td>@training.FinishedTraining</td>
+                            <td>@training.TrainingDurationDays</td>
+                        </tr>
+            }
+            </tbody>
+        </table>
 }
 
 @section Scripts {

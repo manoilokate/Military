@@ -1,0 +1,80 @@
+﻿@model IEnumerable<PersonalRecord>
+
+<h2>Фільтрування особових справ</h2>
+
+<form asp-action="Index" method="post">
+    <div class="row mb-3" style="margin-top:30px">
+        <label style="margin-bottom:20px; font-size:18px">Оберіть критерій(-ії) для фільтрування:</label>
+        <div class="col-md-2">
+            <label for="Rank" class="form-label">Звання:</label>
+        </div>
+        <div class="col-md-6">
+            <input type="text" id="Rank" name="Rank" class="form-control" placeholder="Сержант" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label for="NumberOrganization" class="form-label">Номер частини:</label>
+        </div>
+        <div class="col-md-6">
+            <input type="text" id="NumberOrganization" name="NumberOrganization" class="form-control" placeholder="А1234" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-2">
+            <label for="Education" class="form-label">Освіта:</label>
+        </div>
+        <div class="col-md-6">
+            <select id="Education" name="Education" class="form-select" >
+                <option value="" disabled selected>Оберіть освіту</option>
+                <option value="Неповна середня">Неповна середня</option>
+                <option value="Повна середня">Повна середня</option>
+                <option value="Неповна вища">Неповна вища</option>
+                <option value="Повна вища">Повна вища</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Фільтрувати</button>
+    </div>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <h2>Результати:</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Дата народження</th>
+                <th>Початок служби</th>
+                <th>Звання</th>
+                <th>Номер частини</th>
+                <th>Освіта</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>@person.LastName</td>
+                    <td>@person.FirstName</td>
+                    <td>@person.Soname</td>
+                    <td>@person.DateOfBirth</td>
+                    <td>@person.DateOfStartWork</td>
+                    <td>@person.Rank</td>
+                    <td>@person.NumberOrganization</td>
+                    <td>@person.Education</td>
+                    <td>@person.PhoneNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}

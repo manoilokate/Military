@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PersonalRecords.Models
 {
-    public class FamilyContacts
+    public class InformationAboutDiseases
     {
         [Key]
-        public int Id { get; set; }
+        public int InformationAboutDiseasesId { get; set; }
         [Required]
         public int PersonalRecordId { get; set; }
         [ForeignKey("PersonalRecordId")]
@@ -17,17 +17,13 @@ namespace PersonalRecords.Models
         public string LastName { get; set; }
         [Required]
         public string Soname { get; set; }
-
         [Required]
-        public string Relationship { get; set; }
+        public DateOnly StartedToIll {  get; set; }
         [Required]
-        public string PhoneNumber { get; set; }
+        public DateOnly FinishedToIll { get; set; }
         [Required]
-        public string Email { get; set; }
+        public int IllnessDurationDays { get; set; }
         [Required]
-        public string City {  get; set; }
-        [Required]
-        public string Address { get; set; }
-
+        public bool StayInHospital {  get; set; }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace PersonalRecords.Models
 {
-    public class FamilyContacts
+    public class InformationAboutVacation
     {
+
         [Key]
-        public int Id { get; set; }
+        public int InformationAboutVacationId { get; set; }
         [Required]
         public int PersonalRecordId { get; set; }
         [ForeignKey("PersonalRecordId")]
@@ -17,17 +18,13 @@ namespace PersonalRecords.Models
         public string LastName { get; set; }
         [Required]
         public string Soname { get; set; }
-
         [Required]
-        public string Relationship { get; set; }
+        public DateOnly StartedVacation { get; set; }
         [Required]
-        public string PhoneNumber { get; set; }
+        public DateOnly FinishedVacation { get; set; }
         [Required]
-        public string Email { get; set; }
+        public int VacationDurationDays { get; set; }
         [Required]
-        public string City {  get; set; }
-        [Required]
-        public string Address { get; set; }
-
+        public bool IsPaidVacation { get; set; }
     }
 }
