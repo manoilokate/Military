@@ -59,7 +59,7 @@ namespace PersonalRecords.Controllers
                         var sickLeaves = _context.InformationAboutDiseases
                             .Where(c => c.PersonalRecordId == matchedRecord.Id)
                             .ToList();
-                        ViewBag.Title = "Інформація про лікарняні";
+                        ViewBag.Title = "Інформація про лікарняні ";
                         ViewBag.Data = sickLeaves;  
                         break;
 
