@@ -6,19 +6,19 @@
     <div class="row mb-3 p-1">
         <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
         <div class="col-6">
-            <input asp-for="LastName" class="form-control" />
+            <input asp-for="LastName" class="form-control" placeholder="Іванюк" />
         </div>
     </div>
     <div class="row mb-3 p-1">
         <label asp-for="FirstName" class="p-0">Введіть ім'я:</label>
         <div class="col-6">
-            <input asp-for="FirstName" class="form-control" />
+            <input asp-for="FirstName" class="form-control" placeholder ="Іван"/>
         </div>
     </div>
     <div class="row mb-3 p-1">
         <label asp-for="Soname" class="p-0">Введіть по-батькові:</label>
         <div class="col-6">
-            <input asp-for="Soname" class="form-control" />
+            <input asp-for="Soname" class="form-control" placeholder ="Іванович"/>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Пошук</button>
@@ -76,7 +76,7 @@
 }
 else if (ViewBag.Message != null)
 {
-    <p>@ViewBag.Message</p>
+    <h6 style="margin-top:20px">@ViewBag.Message</h6>
     <a asp-action="Add" class="btn btn-primary">Додати запис</a>
 }
 @if (ViewBag.Title == "Контактна інформація")

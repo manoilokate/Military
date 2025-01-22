@@ -88,7 +88,7 @@ namespace PersonalRecords.Controllers
             }
             else
             {
-                ViewBag.Message = "Запис не знайдено";
+                ViewBag.Message = "Запис не знайдено !";
                 return View();
             }
         }
