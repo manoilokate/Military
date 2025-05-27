@@ -22,8 +22,6 @@ namespace PersonalRecords.Models
         [Required]
         public DateOnly FinishedToIll { get; set; }
         [Required]
-        public int IllnessDurationDays { get; set; }
-        [Required]
         public bool StayInHospital {  get; set; }
     }
 }

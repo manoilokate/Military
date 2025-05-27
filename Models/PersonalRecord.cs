@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace PersonalRecords.Models
 {
@@ -14,9 +15,19 @@ namespace PersonalRecords.Models
         [Required]
         public string Soname {  get; set; }
         [Required]
-        public string DateOfBirth { get; set; }
+        public DateTime _dateOfBirth;
+        public string DateOfBirth
+        {
+            get => _dateOfBirth.ToString("dd-MM-yyyy");
+            set => _dateOfBirth = DateTime.ParseExact(value, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        }
         [Required]
-        public string DateOfStartWork { get; set; }
+        private DateTime _dateOfStartWork;
+        public string DateOfStartWork
+        {
+            get => _dateOfStartWork.ToString("dd-MM-yyyy");
+            set => _dateOfStartWork = DateTime.ParseExact(value, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        }
         [Required]
         public string Rank { get; set; }
         [Required]

@@ -124,15 +124,15 @@ else if (ViewBag.Message != null)
                 </tr>
             </thead>
             <tbody>
-            @foreach (var sickLeave in ViewBag.Data)
-            {
-                        <tr>
-                            <td>@sickLeave.StartedToIll</td>
-                            <td>@sickLeave.FinishedToIll</td>
-                            <td>@sickLeave.IllnessDurationDays</td>
-                            <td>@(sickLeave.StayInHospital ? "Так" : "Ні")</td>
-                        </tr>
-            }
+                @foreach (var sickLeave in ViewBag.Data)
+                {
+                    <tr>
+                        <td>@sickLeave.StartedToIll</td>
+                        <td>@sickLeave.FinishedToIll</td>
+                        <td>@sickLeave.IllnessDurationDays</td>
+                        <td>@(sickLeave.StayInHospital ? "Так" : "Ні")</td>
+                    </tr>
+                }
             </tbody>
         </table>
 }

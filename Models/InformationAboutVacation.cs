@@ -23,8 +23,6 @@ namespace PersonalRecords.Models
         [Required]
         public DateOnly FinishedVacation { get; set; }
         [Required]
-        public int VacationDurationDays { get; set; }
-        [Required]
         public bool IsPaidVacation { get; set; }
     }
 }

@@ -13,11 +13,6 @@
     <div class="h-auto row d-flex justify-content-center gap-3" style="margin-top:30px">
         <div class="col-md-4">
             <div class="row mb-3 p-1">
-                <label asp-for="Id" class="p-0">Введіть id:</label>
-                <input asp-for="Id" class="form-control" placeholder="123" min="0"/>
-                <span asp-validation-for="Id" class="text-danger" style="font-size:12px"></span>
-            </div>
-            <div class="row mb-3 p-1">
                 <label asp-for="LastName" class="p-0">Введіть прізвище:</label>
                 <input asp-for="LastName" class="form-control" placeholder="Іваненко" />
                 <span asp-validation-for="LastName" class="text-danger" style="font-size:12px"></span>
@@ -34,14 +29,14 @@
             </div>
             <div class="row mb-3 p-1">
                 <label asp-for="DateOfBirth" class="p-0">Введіть дату народження:</label>
-                <input asp-for="DateOfBirth" class="form-control" placeholder="2000-12-20" />
+                <input asp-for="DateOfBirth" class="form-control" placeholder="20-12-2000" />
                 <span asp-validation-for="DateOfBirth" class="text-danger" style="font-size:12px"></span>
             </div>
         </div>
         <div class="col-md-4 ms-2">
             <div class="row mb-3 p-1">
                 <label asp-for="DateOfStartWork" class="p-0">Введіть дату початку роботи:</label>
-                <input asp-for="DateOfStartWork" class="form-control" placeholder="2020-12-20" />
+                <input asp-for="DateOfStartWork" class="form-control" placeholder="20-12-2020" />
                 <span asp-validation-for="DateOfStartWork" class="text-danger" style="font-size:12px"></span>
             </div>
             <div class="row mb-3 p-1">
