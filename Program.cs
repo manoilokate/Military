@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalRecords.Data;
 using DotNetEnv;
+using OfficeOpenXml;
 
 var modelBuilder = WebApplication.CreateBuilder(args);
 
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 DotNetEnv.Env.Load();
 modelBuilder.Configuration.AddEnvironmentVariables();
 
