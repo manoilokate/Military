@@ -2,7 +2,7 @@
 
 namespace PersonalRecords.Models
 {
-    public class User
+    public class Users
     {
         [Key]
         [Required]
@@ -10,10 +10,13 @@ namespace PersonalRecords.Models
         [Required]
         [StringLength(25)]
         public string UserName { get; set; }
+        [Required, EmailAddress]
+        public string Email { get; set; }
         [Required]
-        [StringLength(25)]
         public string Password { get; set; }
         [Required]
         public string Role {  get; set; }
+        [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

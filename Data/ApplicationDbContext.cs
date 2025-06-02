@@ -11,7 +11,7 @@ namespace PersonalRecords.Data
         {
 
         }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Users> Users { get; set; }
     public DbSet<PersonalRecord> PersonalRecords { get; set; }
     public DbSet<FamilyContacts> FamilyContacts { get; set; }
     public DbSet<InformationAboutDiseases> InformationAboutDiseases { get; set; }

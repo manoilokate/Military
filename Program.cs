@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonalRecords.Data;
 using DotNetEnv;
 using OfficeOpenXml;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var modelBuilder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,15 @@ var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 var connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username={dbUser};Password={dbPassword}";
 modelBuilder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+modelBuilder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
+modelBuilder.Services.AddAuthorization();
 
 var app = modelBuilder.Build();
 

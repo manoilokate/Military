@@ -17,17 +17,41 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin-left:20px">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="search" asp-action="Index">Пошук ОС</a>
+                            <a class="nav-link text-dark" asp-controller="Search" asp-action="Index">Пошук ОС</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="create" asp-action="Index">Додати ОС</a>
+                            <a class="nav-link text-dark" asp-controller="Create" asp-action="Index">Додати ОС</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="filter" asp-action="Index">Фільтрувати ОС</a>
+                            <a class="nav-link text-dark" asp-controller="Filter" asp-action="Index">Фільтрувати ОС</a>
                         </li>
                     </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">Ви увійшли як @User.Identity.Name</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">Профіль</a>
+                            </li>
+                            <li class="nav-item">
+                                <form asp-controller="Account" asp-action="Logout" method="post" onsubmit="return confirm('Ви впевнені, що хочете вийти?');">
+                                    <button type="submit" class="btn btn-link nav-link">Вийти</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вхід</a>
+                            </li>
+                        }
+                    </ul>
+
                 </div>
             </div>
         </nav>
