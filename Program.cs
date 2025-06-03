@@ -27,7 +27,6 @@ modelBuilder.Services.AddAuthentication(CookieAuthenticationDefaults.Authenticat
     .AddCookie(options =>
     {
         options.LoginPath = "/Account/Login";
-        options.AccessDeniedPath = "/Account/AccessDenied";
     });
 
 modelBuilder.Services.AddAuthorization();
@@ -50,6 +49,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();

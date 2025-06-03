@@ -36,10 +36,16 @@
                                 <span class="nav-link text-dark">Ви увійшли як @User.Identity.Name</span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">Профіль</a>
+                                <a class="nav-link text-dark" asp-controller="User" asp-action="Profile">Профіль</a>
                             </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Register" asp-action="Register">Додати користувача</a>
+                                </li>
+                            }
                             <li class="nav-item">
-                                <form asp-controller="Account" asp-action="Logout" method="post" onsubmit="return confirm('Ви впевнені, що хочете вийти?');">
+                                <form asp-controller="Logout" asp-action="Logout" method="post" onsubmit="return confirm('Ви впевнені, що хочете вийти?');">
                                     <button type="submit" class="btn btn-link nav-link">Вийти</button>
                                 </form>
                             </li>
@@ -47,9 +53,10 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Вхід</a>
+                                <a class="nav-link text-dark" asp-controller="Login" asp-action="Login">Вхід</a>
                             </li>
                         }
+
                     </ul>
 
                 </div>
@@ -64,7 +71,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - PersonalRecords - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - PersonalRecords - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
