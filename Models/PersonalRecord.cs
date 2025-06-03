@@ -8,8 +8,8 @@ namespace PersonalRecords.Models
     {
         [Key]
         public int Id { get; set; }
-        public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FirstName { get; set; }
         public string Soname {  get; set; }
         public DateOnly DateOfBirth { get; set; }         
         public DateOnly DateOfStartWork { get; set; }    

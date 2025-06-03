@@ -51,12 +51,11 @@ namespace PersonalRecords.Controllers
                     {
                         string phoneNumber = worksheet.Cells[row, 9].Text.Trim();
 
-                        bool isEmptyRow = Enumerable.Range(1, 9) // колонки 1–9
+                        bool isEmptyRow = Enumerable.Range(1, 9) 
                         .All(col => string.IsNullOrWhiteSpace(worksheet.Cells[row, col].Text));
 
                         if (isEmptyRow)
                         {
-                            // Повністю порожній рядок — ігноруємо, без помилок
                             continue;
                         }
 
@@ -66,20 +65,18 @@ namespace PersonalRecords.Controllers
                             continue;
                         }
 
-                        // Перевірка на наявність у базі
                         bool exists = _context.PersonalRecords.Any(p => p.PhoneNumber == phoneNumber);
                         if (exists)
                         {
                             continue;
                         }
 
-                        // Зчитування інших даних
-                        string lastName = worksheet.Cells[row, 1].Text.Trim();
-                        string firstName = worksheet.Cells[row, 2].Text.Trim();
-                        string soname = worksheet.Cells[row, 3].Text.Trim();
-                        string rank = worksheet.Cells[row, 6].Text.Trim();
-                        string numberOrg = worksheet.Cells[row, 7].Text.Trim();
-                        string education = worksheet.Cells[row, 8].Text.Trim();
+                        string lastName = CleanString(worksheet.Cells[row, 1].Text);
+                        string firstName = CleanString(worksheet.Cells[row, 2].Text);
+                        string soname = CleanString(worksheet.Cells[row, 3].Text);
+                        string rank = CleanString(worksheet.Cells[row, 6].Text);
+                        string numberOrg = CleanString(worksheet.Cells[row, 7].Text);
+                        string education = CleanString(worksheet.Cells[row, 8].Text);
 
                         if (!DateTime.TryParse(worksheet.Cells[row, 4].Text.Trim(), out DateTime dob))
                         {
@@ -105,7 +102,6 @@ namespace PersonalRecords.Controllers
                             Education = education,
                             PhoneNumber = phoneNumber
                         };
-
                         records.Add(record);
                     }
                     catch (Exception ex)
@@ -113,7 +109,6 @@ namespace PersonalRecords.Controllers
                         errors.Add($"Рядок {row}: помилка обробки - {ex.Message}");
                     }
                 }
-
                 if (records.Any())
                 {
                     _context.PersonalRecords.AddRange(records);
@@ -130,7 +125,14 @@ namespace PersonalRecords.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
+        private static string CleanString(string? input)
+        {
+            return string.IsNullOrWhiteSpace(input)
+                ? string.Empty
+                : new string(input
+                    .Where(c => !char.IsControl(c)) // видалити control-символи
+                    .ToArray())
+                    .Trim(); // обрізає пробіли
+        }
     }
 }
