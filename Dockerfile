@@ -13,6 +13,6 @@ WORKDIR /App
 
 COPY --from=build-env /App/out .
 
-EXPOSE 5000
+EXPOSE 80
 
 ENTRYPOINT ["dotnet", "PersonalRecords.dll", "--urls", "http://0.0.0.0:80"]
