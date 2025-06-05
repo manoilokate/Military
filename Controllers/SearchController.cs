@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PersonalRecords.Data;
 using PersonalRecords.Models;
@@ -19,6 +20,7 @@ namespace PersonalRecords.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Add()
         {
             return View("~/Views/Create/Index.cshtml");
@@ -29,7 +31,6 @@ namespace PersonalRecords.Controllers
         {
             PersonalRecord? matchedRecord = null;
             bool isSearchPerformed = false;
-
             if (!string.IsNullOrEmpty(LastName) || !string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(Soname))
             {
                 isSearchPerformed = true;
@@ -59,7 +60,7 @@ namespace PersonalRecords.Controllers
                         var sickLeaves = _context.InformationAboutDiseases
                             .Where(c => c.PersonalRecordId == matchedRecord.Id)
                             .ToList();
-                        ViewBag.Title = "Інформація про лікарняні";
+                        ViewBag.Title = "Інформація про лікарняні ";
                         ViewBag.Data = sickLeaves;  
                         break;
 
@@ -88,7 +89,7 @@ namespace PersonalRecords.Controllers
             }
             else
             {
-                ViewBag.Message = "Запис не знайдено";
+                ViewBag.Message = "Запис не знайдено !";
                 return View();
             }
         }

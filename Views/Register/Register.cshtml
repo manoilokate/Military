@@ -1,0 +1,25 @@
+﻿@model Users
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h2>Реєстрація</h2>
+
+<form method="post" asp-action="Register">
+    <input asp-for="UserName" placeholder="Username" />
+    <input asp-for="Email" type="email" placeholder="Email" />
+    <input asp-for="Password" type="password" placeholder="Password" />
+    <div class="form-group">
+        <label asp-for="Role">Роль:</label>
+        <select class="form-control" name="role">
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Зареєструвати</button>
+</form>

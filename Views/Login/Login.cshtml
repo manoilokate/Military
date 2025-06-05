@@ -1,0 +1,20 @@
+﻿@model Users
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<h2>Вхід</h2>
+
+<form method="post" asp-action="Login">
+    <input name="usernameOrEmail" placeholder="Username or Email" />
+    <input asp-for="Password" type="password" placeholder="Password" />
+    <button type="submit" class="btn btn-primary">Увійти</button>
+</form>

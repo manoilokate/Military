@@ -10,24 +10,54 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" >
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PersonalRecords</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" style="margin-left:20px">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Search" asp-action="Index">Пошук ОС</a>
+                            <a class="nav-link text-dark" asp-controller="Search" asp-action="Index">Пошук ОС</a>
                         </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Create" asp-action="Index">Додати ОС</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Create" asp-action="Index">Додати ОС</a>
+                            <a class="nav-link text-dark" asp-controller="Filter" asp-action="Index">Фільтрувати ОС</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Filter" asp-action="Index">Фільтрувати ОС</a>
-                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">Ви увійшли як @User.Identity.Name</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="User" asp-action="Profile">Профіль</a>
+                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Register" asp-action="Register">Додати користувача</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <form asp-controller="Logout" asp-action="Logout" method="post" onsubmit="return confirm('Ви впевнені, що хочете вийти?');">
+                                    <button type="submit" class="btn btn-link nav-link">Вийти</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Login" asp-action="Login">Вхід</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -41,7 +71,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - PersonalRecords - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2025 - PersonalRecords - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

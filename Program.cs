@@ -1,9 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalRecords.Data;
 using DotNetEnv;
+using OfficeOpenXml;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var modelBuilder = WebApplication.CreateBuilder(args);
 
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 DotNetEnv.Env.Load();
 modelBuilder.Configuration.AddEnvironmentVariables();
 
@@ -20,13 +23,20 @@ var connectionString = $"Host={dbHost};Port={dbPort};Database={dbName};Username=
 modelBuilder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
+modelBuilder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+    });
+
+modelBuilder.Services.AddAuthorization();
+
 var app = modelBuilder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -39,6 +49,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();

@@ -39,7 +39,7 @@ namespace PersonalRecords.Controllers
             }
             var result = filteredPeople.ToList();
 
-            if (!result.Any()) // Перевіряємо, чи результат порожній
+            if (!result.Any()) 
             {
                 ViewBag.Message = "Запис не знайдено";
             }
