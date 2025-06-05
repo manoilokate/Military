@@ -41,21 +41,15 @@ pipeline {
         }
 
         stage('Push Docker image') {
-            // when {
-            //     expression {
-            //         return env.GIT_BRANCH && (env.GIT_BRANCH.contains("snapshot-") || env.GIT_BRANCH.contains("release-"))
-            //     }
-            // }
             steps {
                 script {
                     sh "docker tag helix:${GIT_COMMIT_HASH} viyd/military:helix-${GIT_COMMIT_HASH}"
-                    withCredentials([string(credentialsId: 'DOCKERHUB', variable: 'DOCKERHUB')]) {
-                        sh "echo $DOCKERHUB | docker login -u viyd --password-stdin"
+                    withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
+                        sh "echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin"
                         sh "docker push viyd/military:helix-${GIT_COMMIT_HASH}"
                     }
                 }
             }
         }
-
     }
 }
